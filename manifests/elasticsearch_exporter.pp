@@ -89,21 +89,21 @@ class prometheus::elasticsearch_exporter (
   String $package_name,
   String $user,
   String $version,
+  String $init_style,
+  String $install_method,
+  String $bin_dir,
+  String $arch                   = $prometheus::real_arch,
   Boolean $purge_config_dir      = true,
   Boolean $restart_on_change     = true,
   Boolean $service_enable        = true,
   String $service_ensure         = 'running',
-  String $init_style             = $prometheus::init_style,
-  String $install_method         = $prometheus::install_method,
   Boolean $manage_group          = true,
   Boolean $manage_service        = true,
   Boolean $manage_user           = true,
-  String $os                     = $prometheus::os,
   String $extra_options          = '',
   Optional[String] $download_url = undef,
-  String $arch                   = $prometheus::real_arch,
-  String $bin_dir                = $prometheus::bin_dir,
-) inherits prometheus {
+  String $os = downcase($facts['kernel']),
+) {
 
   #Please provide the download_url for versions < 0.9.0
   $real_download_url = pick($download_url,"${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")

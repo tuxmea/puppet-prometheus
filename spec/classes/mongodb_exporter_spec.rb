@@ -6,6 +6,9 @@ describe 'prometheus::mongodb_exporter' do
       let(:facts) do
         facts.merge(os_specific_facts(facts))
       end
+      let(:pre_condition) do
+        'include prometheus'
+      end
 
       context 'with version specified' do
         let(:params) do

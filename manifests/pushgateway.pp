@@ -78,21 +78,21 @@ class prometheus::pushgateway (
   String $package_name,
   String $user,
   String $version,
+  String $bin_dir,
+  String $init_style,
+  String $install_method,
+  String $arch                   = $prometheus::real_arch,
   Boolean $restart_on_change     = true,
   Boolean $service_enable        = true,
   String $service_ensure         = 'running',
   String $service_name           = 'pushgateway',
-  String $init_style             = $prometheus::init_style,
-  String $install_method         = $prometheus::install_method,
   Boolean $manage_group          = true,
   Boolean $manage_service        = true,
   Boolean $manage_user           = true,
-  String $os                     = $prometheus::os,
   String $extra_options          = '',
   Optional[String] $download_url = undef,
-  String $arch                   = $prometheus::arch,
-  String $bin_dir                = $prometheus::bin_dir,
-) inherits prometheus {
+  String $os = downcase($facts['kernel']),
+) {
 
   # Prometheus added a 'v' on the realease name at 0.3.0
   if versioncmp ($version, '0.3.0') >= 0 {

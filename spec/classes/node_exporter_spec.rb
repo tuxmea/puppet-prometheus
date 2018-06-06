@@ -6,6 +6,9 @@ describe 'prometheus::node_exporter' do
       let(:facts) do
         facts.merge(os_specific_facts(facts))
       end
+      let(:pre_condition) do
+        'include prometheus'
+      end
 
       context 'without parameters' do
         it { is_expected.to compile.with_all_deps }

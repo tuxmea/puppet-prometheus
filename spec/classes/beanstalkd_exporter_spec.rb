@@ -17,6 +17,9 @@ describe 'prometheus::beanstalkd_exporter' do
             install_method: 'url'
           }
         end
+        let(:pre_condition) do
+          'include prometheus'
+        end
 
         describe 'with specific params' do
           it { is_expected.to contain_archive('/tmp/beanstalkd_exporter-1.0.0.tar.gz') }

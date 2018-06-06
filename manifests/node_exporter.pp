@@ -94,25 +94,25 @@ class prometheus::node_exporter (
   String $package_name,
   String $user,
   String $version,
+  String $bin_dir,
+  Optional[String] $init_style,
+  String $install_method,
+  String $arch                   = $prometheus::real_arch,
   Boolean $purge_config_dir           = true,
   Boolean $restart_on_change          = true,
   Boolean $service_enable             = true,
   String $service_ensure              = 'running',
   String $service_name                = 'node_exporter',
-  Optional[String] $init_style        = $prometheus::init_style,
-  String $install_method              = $prometheus::install_method,
   Boolean $manage_group               = true,
   Boolean $manage_service             = true,
   Boolean $manage_user                = true,
-  String $os                          = $prometheus::os,
   String $extra_options               = '',
   Optional[String] $download_url      = undef,
-  String $arch                        = $prometheus::real_arch,
-  String $bin_dir                     = $prometheus::bin_dir,
   Optional[Array[String]] $collectors = undef,
   Array[String] $collectors_enable    = [],
   Array[String] $collectors_disable   = [],
-) inherits prometheus {
+  String $os = downcase($facts['kernel']),
+) {
 
   # Prometheus added a 'v' on the realease name at 0.13.0
   if versioncmp ($version, '0.13.0') >= 0 {

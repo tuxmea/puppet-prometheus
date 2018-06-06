@@ -17,6 +17,9 @@ describe 'prometheus::elasticsearch_exporter' do
             install_method: 'url'
           }
         end
+        let(:pre_condition) do
+          'include prometheus'
+        end
 
         describe 'compile manifest' do
           it { is_expected.to compile.with_all_deps }

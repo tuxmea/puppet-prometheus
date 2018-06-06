@@ -17,6 +17,9 @@ describe 'prometheus::alertmanager' do
             install_method: 'url'
           }
         end
+        let(:pre_condition) do
+          'include prometheus'
+        end
 
         describe 'with specific params' do
           it { is_expected.to compile.with_all_deps }

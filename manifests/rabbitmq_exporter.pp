@@ -113,22 +113,22 @@ class prometheus::rabbitmq_exporter (
   String $queues_exclude_regex,
   Array[String] $rabbit_capabilities,
   Array[String] $rabbit_exporters,
-  String $arch                        = $prometheus::real_arch,
-  String $bin_dir                     = $prometheus::bin_dir,
+  String $bin_dir,
+  String $init_style,
+  String $install_method,
+  String $arch                   = $prometheus::real_arch,
   Optional[String] $download_url      = undef,
   String $extra_options               = '',
-  String $init_style                  = $prometheus::init_style,
-  String $install_method              = $prometheus::install_method,
   Boolean $manage_group               = true,
   Boolean $manage_service             = true,
   Boolean $manage_user                = true,
-  String $os                          = $prometheus::os,
   Boolean $purge_config_dir           = true,
   Boolean $restart_on_change          = true,
   Boolean $service_enable             = true,
   String $service_ensure              = 'running',
   Hash[String,String] $extra_env_vars = {},
-) inherits prometheus {
+  String $os = downcase($facts['kernel']),
+) {
 
   $real_download_url    = pick($download_url, "${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
   $notify_service = $restart_on_change ? {

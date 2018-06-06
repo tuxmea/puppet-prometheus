@@ -6,6 +6,9 @@ describe 'prometheus::graphite_exporter' do
       let(:facts) do
         facts.merge(os_specific_facts(facts))
       end
+      let(:pre_condition) do
+        'include prometheus'
+      end
 
       context 'without parameters' do
         it { is_expected.to contain_prometheus__daemon('graphite_exporter') }

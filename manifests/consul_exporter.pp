@@ -98,6 +98,10 @@ class prometheus::consul_exporter (
   String $version,
   String $web_listen_address,
   String $web_telemetry_path,
+  String $init_style,
+  String $install_method,
+  String $bin_dir,
+  String $arch                   = $prometheus::real_arch,
   Boolean $purge_config_dir      = true,
   Boolean $restart_on_change     = true,
   Boolean $service_enable        = true,
@@ -105,14 +109,10 @@ class prometheus::consul_exporter (
   Boolean $manage_group          = true,
   Boolean $manage_service        = true,
   Boolean $manage_user           = true,
-  String $os                     = $prometheus::os,
-  String $init_style             = $prometheus::init_style,
-  String $install_method         = $prometheus::install_method,
   String $extra_options          = '',
   Optional[String] $download_url = undef,
-  String $arch                   = $prometheus::real_arch,
-  String $bin_dir                = $prometheus::bin_dir,
-) inherits prometheus {
+  String $os = downcase($facts['kernel']),
+) {
 
   # Prometheus added a 'v' on the realease name at 0.3.0
   if versioncmp ($version, '0.3.0') == -1 {

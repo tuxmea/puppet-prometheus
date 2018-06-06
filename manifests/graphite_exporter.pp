@@ -82,13 +82,13 @@ class prometheus::graphite_exporter (
   Boolean $manage_service,
   Boolean $manage_user,
   String $options,
-  String $os                     = $prometheus::os,
-  String $init_style             = $prometheus::init_style,
-  String $install_method         = $prometheus::install_method,
+  String $init_style,
+  String $install_method,
+  String $bin_dir,
   Optional[String] $download_url = undef,
+  String $os                     = downcase($facts['kernel']),
   String $arch                   = $prometheus::real_arch,
-  String $bin_dir                = $prometheus::bin_dir,
-) inherits prometheus {
+) {
 
   $real_download_url = pick($download_url,"${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
 
